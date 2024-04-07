@@ -19,7 +19,7 @@ DROP TABLE NOTE;
 	Goat_id integer NOT NULL,
 	Date_of_note timestamp,
 	Note varchar(30) NOT NULL,
-	primary key( Goat_id, created )
+	primary key( Goat_id, created ),
 	FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id)
 
 );
