@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS COHORT;
+CREATE TABLE COHORT (
+	Cohort_id integer primary key,
+	Cohort_name varchar(20),
+);
+
 DROP TABLE IF EXISTS GOAT;
 CREATE TABLE GOAT(
 	Goat_id integer primary key,
@@ -22,11 +28,6 @@ DROP TABLE IF EXISTS NOTE;
 	primary key( Goat_id, Date_of_note),
 	FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id)
 
-);
-DROP TABLE IF EXISTS COHORT;
-CREATE TABLE COHORT (
-	Cohort_id integer primary key,
-	Cohort_name varchar(20),
 );
 
 -- \copy GOAT from 'CSV/Goat.csv' WITH DELIMITER ',' CSV HEADER; --
