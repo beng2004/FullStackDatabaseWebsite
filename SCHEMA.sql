@@ -28,3 +28,5 @@ CREATE TABLE COHORT (
 	Cohort_id integer primary key,
 	Cohort_name varchar(20),
 );
+
+\copy GOAT from 'CSV/Goat.csv' WITH DELIMITER ',' CSV HEADER;
