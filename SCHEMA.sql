@@ -30,4 +30,4 @@ DROP TABLE IF EXISTS NOTE;
 
 );
 
--- \copy GOAT from 'CSV/Goat.csv' WITH DELIMITER ',' CSV HEADER; --
+\copy GOAT from 'CSV/Goat.csv' WITH DELIMITER ',' CSV HEADER; --
