@@ -69,8 +69,8 @@ CREATE TABLE Animal (
 	full_rfid varchar(16) default '',
 	full_rfid_date timestamp);
 
-DROP TABLE Note;
-CREATE TABLE Note (
+DROP TABLE Note1;
+CREATE TABLE Note1 (
 	animal_id integer NOT NULL,
 	created timestamp,
 	note varchar(30) NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE PicklistValue (
 -- 	Cohort_id integer primary key,
 -- 	Cohort_name varchar(20)
 -- );
-
+DROP TABLE IF EXISTS GOAT;
 CREATE TABLE GOAT AS
 SELECT
     animal_id AS Goat_id,
@@ -144,6 +144,7 @@ ADD PRIMARY KEY (Goat_id),
 --ADD CONSTRAINT fk_cohort_id FOREIGN KEY (Cohort_id) REFERENCES COHORT (Cohort_id);
 
 -- Copying data from SessionAnimalActivity table to WEIGH_IN table
+DROP TABLE IF EXISTS WEIGH_IN;
 CREATE TABLE WEIGH_IN AS
 SELECT
     when_measured AS Weigh_in_date,
@@ -156,12 +157,13 @@ ADD PRIMARY KEY (Weigh_in_date, Goat_id),
 ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 
 -- Copying data from Note table to NOTE table
+DROP TABLE IF EXISTS NOTE;
 CREATE TABLE NOTE AS
 SELECT
     animal_id AS Goat_id,
     created AS Date_of_note,
     note AS Note
-FROM Note;
+FROM Note1;
 
 ALTER TABLE NOTE
 ADD PRIMARY KEY (Goat_id, Date_of_note),
