@@ -130,7 +130,10 @@ CREATE TABLE PicklistValue (
 -- 	Cohort_id integer primary key,
 -- 	Cohort_name varchar(20)
 -- );
+DROP TABLE IF EXISTS NOTE;
+DROP TABLE IF EXISTS WEIGH_IN;
 DROP TABLE IF EXISTS GOAT;
+
 CREATE TABLE GOAT AS
 SELECT
     animal_id AS Goat_id,
@@ -144,7 +147,6 @@ ADD PRIMARY KEY (Goat_id),
 --ADD CONSTRAINT fk_cohort_id FOREIGN KEY (Cohort_id) REFERENCES COHORT (Cohort_id);
 
 -- Copying data from SessionAnimalActivity table to WEIGH_IN table
-DROP TABLE IF EXISTS WEIGH_IN;
 CREATE TABLE WEIGH_IN AS
 SELECT
     when_measured AS Weigh_in_date,
@@ -157,7 +159,6 @@ ADD PRIMARY KEY (Weigh_in_date, Goat_id),
 ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 
 -- Copying data from Note table to NOTE table
-DROP TABLE IF EXISTS NOTE;
 CREATE TABLE NOTE AS
 SELECT
     animal_id AS Goat_id,
