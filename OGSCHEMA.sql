@@ -138,10 +138,10 @@ SELECT
     dob AS Birth_date,
     breed AS Breed,
     NULL AS Cohort_id -- Assuming you don't have Cohort information in the original Animal table
-FROM Animal
-PRIMARY KEY (Goat_id)
---,FOREIGN KEY (Cohort_id) REFERENCES COHORT (Cohort_id)
-;
+FROM Animal;
+ALTER TABLE GOAT
+ADD PRIMARY KEY (Goat_id),
+--ADD CONSTRAINT fk_cohort_id FOREIGN KEY (Cohort_id) REFERENCES COHORT (Cohort_id);
 
 -- Copying data from SessionAnimalActivity table to WEIGH_IN table
 CREATE TABLE WEIGH_IN AS
@@ -149,9 +149,11 @@ SELECT
     when_measured AS Weigh_in_date,
     alpha_value AS Weight, -- You might need to adjust this based on where the weight data is stored
     animal_id AS Goat_id
-FROM SessionAnimalTrait
-PRIMARY KEY(Goat_id, Weigh_in_date),
-FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
+FROM SessionAnimalTrait;
+
+ALTER TABLE WEIGH_IN
+ADD PRIMARY KEY (Weigh_in_date, Goat_id),
+ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 
 -- Copying data from Note table to NOTE table
 CREATE TABLE NOTE AS
@@ -159,7 +161,8 @@ SELECT
     animal_id AS Goat_id,
     note_date AS Date_of_note,
     note AS Note
-FROM Note
-PRIMARY KEY(Goat_id, Date_of_note),
-FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
+FROM Note;
 
+ALTER TABLE NOTE
+ADD PRIMARY KEY (Goat_id, Date_of_note),
+ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
