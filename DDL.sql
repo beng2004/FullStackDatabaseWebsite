@@ -114,14 +114,14 @@ CREATE TABLE PicklistValue (
 	value varchar(30));
 
 -- read the CSV file into the table
-\copy Animal from 'OGCSV/Animal.csv' WITH DELIMITER ',' CSV HEADER;
+\copy Animal from 'CSV/Animal.csv' WITH DELIMITER ',' CSV HEADER;
 
 -- read the CSV file into the table
-\copy Note from 'OGCSV/Note.csv' WITH DELIMITER ',' CSV HEADER;
+\copy Note from 'CSV/Note.csv' WITH DELIMITER ',' CSV HEADER;
 
 
 -- read the CSV file into the table
-\copy SessionAnimalTrait from 'OGCSV/SessionAnimalTrait.csv' WITH DELIMITER ',' CSV HEADER;
+\copy SessionAnimalTrait from 'CSV/SessionAnimalTrait.csv' WITH DELIMITER ',' CSV HEADER;
 
 DROP TABLE IF EXISTS NOTE;
 DROP TABLE IF EXISTS WEIGH_IN;
