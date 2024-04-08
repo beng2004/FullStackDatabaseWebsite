@@ -156,7 +156,7 @@ SELECT
 FROM SessionAnimalTrait;
 
 ALTER TABLE WEIGH_IN
-ADD PRIMARY KEY (Weigh_in_date, Goat_id),
+--ADD PRIMARY KEY (Weigh_in_date, Goat_id),
 ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 
 -- Copying data from Note table to NOTE table
