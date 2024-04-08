@@ -1,0 +1,339 @@
+\i create-insert.sql 
+select * from AIRPORT;
+SELECT Flight_number, Scheduled_departure_time, Arrival_airport_codeFROM FLIGHT_LEG WHERE Departure_airport_code='iah';
+Select * from FLIGHT_LEG;
+SELECT flight_number, Scheduled_departure_time, Arrival_airport_codeFROM FLIGHT_LEG WHERE Departure_airport_code='iah';
+SELECT( flight_number, Scheduled_departure_time, Arrival_airport_code )FROM( FLIGHT_LEG) WHERE( Departure_airport_code='iah');
+\q
+createdb lion
+psql
+SELECT * from lion;
+select * from AIRPORT;
+psql book -c "SELECT '1'::cube;" 
+\h
+CREATE TABLE countries ( country_code char(2) PRIMARY KEY, country_name text UNIQUE );
+CREATE TABLE countries ( country_code char(2) PRIMARY KEY, country_name text UNIQUE );
+\s day1
+INSERT INTO countries (country_code, country_name)
+VALUES ('us','United States'), ('mx','Mexico'), ('au','Australia'),
+('gb','United Kingdom'), ('de','Germany'), ('ll','Loompaland');
+INSERT INTO countries
+VALUES ('uk','United Kingdom');
+SELECT *
+FROM countries;
+DELETE FROM countries
+WHERE country_code = 'll';
+CREATE TABLE cities (
+name text NOT NULL,
+postal_code varchar(9) CHECK (postal_code <> ''),
+country_code char(2) REFERENCES countries,
+PRIMARY KEY (country_code, postal_code)
+);
+INSERT INTO cities
+VALUES ('Toronto','M4C1B5','ca');
+INSERT INTO cities
+VALUES ('Portland','87200','us');
+UPDATE cities
+SET postal_code = '97206'
+WHERE name = 'Portland';
+SELECT cities.*, country_name
+FROM cities INNER JOIN countries /* or just FROM cities JOIN countries */
+ON cities.country_code = countries.country_code;
+CREATE TABLE venues (
+venue_id SERIAL PRIMARY KEY,
+name varchar(255),
+street_address text,
+type char(7) CHECK ( type in ('public','private') ) DEFAULT 'public',
+postal_code varchar(9),
+country_code char(2),
+FOREIGN KEY (country_code, postal_code)
+REFERENCES cities (country_code, postal_code) MATCH FULL);
+INSERT INTO venues (name, postal_code, country_code)
+VALUES ('Crystal Ballroom', '97206', 'us');
+SELECT v.venue_id, v.name, c.name
+FROM venues v INNER JOIN cities c
+ON v.postal_code=c.postal_code AND v.country_code=c.country_code;
+INSERT INTO venues (name, postal_code, country_code)
+VALUES ('Voodoo Doughnut', '97206', 'us') RETURNING venue_id;
+CREATE TABLE events (event_id SERIAL integer, title text, starts timestamp, ends timestamp, venue_id REFERENCES venues); 
+CREATE TABLE events (event_id integer SERIAL, title text, starts timestamp, ends timestamp, venue_id REFERENCES venues); 
+CREATE TABLE events (event_id SERIAL PRIMARY KEY, title text, starts timestamp, ends timestamp, venue_id REFERENCES venues); 
+CREATE TABLE events (event_id SERIAL PRIMARY KEY, title text, starts timestamp, ends timestamp, venue_id SERIAL REFERENCES venues); 
+INSERT INTO events (title, starts, ends) VALUES ('LARP CLUB', '2012-02-15 17:30', '2012-02-15 19:30') ON venue_id ='2';
+INSERT INTO events (title, starts, ends,venue_id) VALUES ('LARP CLUB', '2012-02-15 17:30', '2012-02-15 19:30',2);
+INSERT INTO events (title, starts, ends) VALUES ('April Fools Day', '2012-04-01 00:00', '2012-04-01 23:59');
+INSERT INTO events (title, starts, ends) VALUES ('Christmas Day', '2012-12-25 00:00', '2012-12-25 23:59');
+\s day1
+\q
+[200~WITH FirstLeg AS (
+    SELECT Flight_number, Departure_airport_code
+    FROM FLIGHT_LEG
+    WHERE Leg_number = 1
+),
+LastLeg AS (
+    SELECT Flight_number, Arrival_airport_code
+    FROM FLIGHT_LEG
+    WHERE Leg_number = (
+        SELECT MAX(Leg_number)
+        FROM FLIGHT_LEG
+        WHERE Flight_number = LastLeg.Flight_number
+    )
+)
+SELECT f.Flight_number, FirstLeg.Departure_airport_code, LastLeg.Arrival_airport_code
+FROM FLIGHT f
+JOIN FirstLeg ON f.Flight_number = FirstLeg.Flight_number
+JOIN LastLeg ON f.Flight_number = LastLeg.Flight_number;
+WITH FirstLeg AS (
+    SELECT Flight_number, Departure_airport_code
+    FROM FLIGHT_LEG
+    WHERE Leg_number = 1
+),
+LastLeg AS (
+    SELECT Flight_number, Arrival_airport_code
+    FROM FLIGHT_LEG
+    WHERE Leg_number = (
+        SELECT MAX(Leg_number)
+        FROM FLIGHT_LEG
+        WHERE Flight_number = LastLeg.Flight_number
+    )
+)
+SELECT f.Flight_number, FirstLeg.Departure_airport_code, LastLeg.Arrival_airport_code
+FROM FLIGHT f
+JOIN FirstLeg ON f.Flight_number = FirstLeg.Flight_number
+JOIN LastLeg ON f.Flight_number = LastLeg.Flight_number;
+SELECT Flight_number, Arrival_airport_code
+    FROM FLIGHT_LEG
+    WHERE Leg_number = (
+        SELECT MAX(Leg_number)
+        FROM FLIGHT_LEG
+        WHERE Flight_number = LastLegFlight_number)
+WITH LastLegInfo AS (
+    SELECT Flight_number, MAX(Leg_number) AS LastLegNumber
+    FROM FLIGHT_LEG
+    GROUP BY Flight_number
+)
+WITH LastLegInfo AS (
+    SELECT Flight_number, MAX(Leg_number) AS LastLegNumber
+    FROM FLIGHT_LEG
+    GROUP BY Flight_number
+)
+;
+SELECT Flight_number, MAX(Leg_number) AS LastLegNumber
+    FROM FLIGHT_LEG
+    GROUP BY Flight_number
+;
+SELECT * from flight_leg;
+SELECT * from flight_leg;
+SELECT * from flight_leg;
+SELECT MAX(Leg_number) from flight_leg;
+Select flight_numberr,arrival_airport_code from Flight_leg where leg_number = SELECT MAX(Leg_number) from flight_leg;
+
+SELECT FL.Flight_number, FL.Arrival_airport_code
+FROM (
+    SELECT Flight_number, MAX(Leg_number) AS LastLegNumber
+    FROM FLIGHT_LEG
+    GROUP BY Flight_number
+) AS MaxLeg
+JOIN FLIGHT_LEG AS FL
+ON MaxLeg.Flight_number = FL.Flight_number AND MaxLeg.LastLegNumber = FL.Leg_number;
+
+SELECT FL.Flight_number, FL.Arrival_airport_code
+FROM (
+    SELECT Flight_number, MAX(Leg_number) AS LastLegNumber
+    FROM FLIGHT_LEG
+    GROUP BY Flight_number
+);
+
+SELECT Flight_number, Arrival_airport_code
+FROM (
+    SELECT Flight_number, MAX(Leg_number) AS LastLegNumber
+    FROM FLIGHT_LEG
+    GROUP BY Flight_number
+);
+SELECT flight_number, MAX(leg_number) AS lastLeg FROM FLIGHT_LEG;
+
+SELECT FL.Flight_number, FL.Arrival_airport_code
+FROM (
+    SELECT Flight_number, MAX(Leg_number) AS LastLegNumber
+    FROM FLIGHT_LEG
+    GROUP BY Flight_number
+) AS MaxLeg
+JOIN FLIGHT_LEG AS FL
+ON MaxLeg.Flight_number = FL.Flight_number AND MaxLeg.LastLegNumber = FL.Leg_number;
+SELECT FL1.Flight_number, FL1.Arrival_airport_code
+FROM FLIGHT_LEG FL1
+WHERE FL1.Leg_number = (
+    SELECT MAX(FL2.Leg_number)
+    FROM FLIGHT_LEG FL2
+    WHERE FL2.Flight_number = FL1.Flight_number
+);
+WITH FirstLeg AS (
+    SELECT Flight_number, Departure_airport_code
+    FROM FLIGHT_LEG
+    WHERE Leg_number = 1
+),
+LastLeg AS (
+    SELECT Flight_number, Arrival_airport_code
+    FROM FLIGHT_LEG
+    WHERE Leg_number = (
+        SELECT MAX(Leg_number)
+        FROM FLIGHT_LEG
+        WHERE Flight_number = LastLeg.Flight_number
+    )
+)
+SELECT f.Flight_number, FirstLeg.Departure_airport_code, LastLeg.Arrival_airport_code
+FROM FLIGHT f
+JOIN FirstLeg ON f.Flight_number = FirstLeg.Flight_number
+JOIN LastLeg ON f.Flight_number = L
+SELECT f.FLIGHT_NUMBER, f.DEPARTURE_AIRPORT_CODE, l.ARRIVAL_AIRPORT_CODE
+FROM LEG_INSTANCE AS f
+JOIN LEG_INSTANCE AS l ON f.FLIGHT_NUMBER = l.FLIGHT_NUMBER
+WHERE f.LEG_NUMBER = '1' AND l.LEG_NUMBER = '2';
+SELECT * FROM leg_instance;
+/q
+\q
+createdb Group12
+\i SCHEMA.sql
+CREATE TABLE GOAT;
+CREATE TABLE GOAT();
+CREATE TABLE WEIGH_IN();
+CREATE TABLE NOTE();
+CREATE TABLE COHORT();
+\i SCHEMA.sql
+\q
+\i SCHEMA.sql
+/q
+\q
+\i SCHEMA.sql
+\q
+\i SCHEMA.sql
+\q
+\i SCHEMA.sql
+\q
+\copy GOAT from 'MyGoat.csv' WITH DELIMITER ',' CSV HEADER;
+\copy GOAT from 'CSV/MyGoat.csv' WITH DELIMITER ',' CSV HEADER;
+\copy GOAT from 'CSV/MyGoat.csv' WITH DELIMITER ',' CSV HEADER;
+\q
+\i SCHEMA.sql
+create temporary table t (Goat_id integer, Gender varchar(20), Birth_date timestamp, Breed varchar(20), Cohort_id integer)
+;
+copy t (animal_id, sex, dob, breed, animal_id) from 'OGCSV/Animal (3).csv' with (format csv);
+copy t (animal_id, sex, dob, breed, prev_tag) from 'OGCSV/Animal (3).csv' with (format csv);
+DROP table t;
+copy t (Goat_id, Breed, Date_birth, Breed, Cohort_id) from 'OGCSV/Animal (3).csv' with (format csv);
+create temporary table t (animal_id integer, sex varchar(20), dob timestamp, breed varchar(20), prev_tag integer)
+;
+copy t (animal_id, sex, dob, breed, prev_tag) from 'OGCSV/Animal (3).csv' with (format csv);
+\q
+create temporary table t (animal_id integer, sex varchar(20), dob timestamp, breed varchar(20), prev_tag integer)
+;
+copy t (animal_id, sex, dob, breed, prev_tag) from 'OGCSV/Animal (3).csv' with (format csv);
+copy t (animal_id, sex, dob, breed, prev_tag) from '/OGCSV/Animal (3).csv' with (format csv);
+DROP table t;
+create tempory table t (animal_id integer, sex varchar(20), dob timestamp, breed varchar(20), prev_tag integer);
+create tempory table t (animal_id integer, sex varchar(20), dob timestamp, breed varchar(20), prev_tag integer);
+create temporary table t (animal_id integer, sex varchar(20), dob timestamp, breed varchar(20), prev_tag integer);
+copy t (animal_id, sex, dob, breed, prev_tag) from 'Animal.csv' with (format csv);
+\q
+Drop table t;
+create temporary table t (animal_id integer, sex varchar(20), dob timestamp, breed varchar(20), prev_tag integer);
+copy t (animal_id, sex, dob, breed, prev_tag) from 'Animal.csv' with (format csv);
+\copy t (animal_id, sex, dob, breed, prev_tag) from 'Animal.csv' with (format csv);
+\copy t (animal_id, lrid, tag, rfid, nlis, is_new, draft, sex, dob,sire,dam, breed, colour, weaned, prev_tag) from 'Animal.csv' with (format csv);
+\copy t (animal_id, lrid, tag, rfid, nlis, is_new, draft, sex, dob,sire,dam, breed, colour, weaned, prev_tag) from 'Animal.csv' with (format csv);
+DROP table t;
+create temporary table t (animal_id, lrid, tag, rfid, nlis, is_new, draft, sex, dob,sire,dam, breed, colour, weaned, prev_tag);
+create temporary table t (animal_id, lrid, tag, rfid, nlis, is_new, draft, sex, dob,sire,dam, breed, colour, weaned, prev_tag)
+;
+create temporary table t (animal_id integer, lrid text , tag text , rfid text, nlis text, is_new text, draft text, sex varchar(20), dob timestamp ,sire text,dam text, breed varchar(20), colour text, weaned text, prev_tag integer);
+;
+\copy t (animal_id, lrid, tag, rfid, nlis, is_new, draft, sex, dob,sire,dam, breed, colour, weaned, prev_tag) from 'Animal.csv' with (format csv);
+/q
+\q
+\q
+\i DDL.sql
+\i DDL.sql
+\i DDL.sql
+\i DDL.sql
+\i DDL.sql
+\i DDL.sql
+\i DDL.sql
+\i DDL.sql
+\q
+SELECT *
+FROM WEIGH_IN
+WHERE Goat_id = 1888;
+\q
+\i DDL.sql
+\i DDL.sql
+\i DDL.sql
+SELECT *
+FROM WEIGH_IN
+WHERE Goat_id = 1888;
+SELECT *
+FROM WEIGH_IN
+WHERE Goat_id = 1888;
+\q
+\i DDL.sql
+\i DDL.sql
+\i DDL.sql
+SELECT *
+FROM WEIGH_IN
+WHERE Goat_id = 1888;
+SELECT * FROM WEIGH_IN;
+\i DDL.sql
+SELECT *
+FROM WEIGH_IN
+WHERE Goat_id = 1888;
+SELECT * FROM WEIGH_IN;
+\i DDL.sql
+SELECT * FROM WEIGH_IN;
+SELECT *
+FROM WEIGH_IN
+WHERE Goat_id = 1888;
+SELECT COUNT(Weight) FROM WEIGH_IN;
+SELECT MAX(Weight),goat_id FROM weigh_in;
+SELECT MAX(Weight),Goat_id FROM WEIGH_IN;
+SELECT MAX(Weight),WEIGH_IN.Goat_id FROM WEIGH_IN;
+SELECT MAX(Weight),WEIGH_IN.Goat_id FROM WEIGH_IN GROUP_BY Goat_id;
+SELECT Goat_id, MAX(Weight) AS LAST_Weigh_in_date
+FROM WEIGH_IN
+GROUP BY Goat_id;
+q
+SELECT Goat_id, MAX(Weight) AS LAST_Weigh_in_date
+FROM WEIGH_IN
+GROUP BY Goat_id;
+SELECT Goat_id, MAX(CAST(Weight AS INT)) AS Max_weight_date
+FROM WEIGH_IN
+GROUP BY Goat_id;
+SELECT Goat_id, MAX(CAST(Weight AS FLOAT)) AS Max_weight_date
+FROM WEIGH_IN
+GROUP BY Goat_id;
+WHERE Weigh_in_date BETWEEN '2023-03-01' AND '2021-03-31';
+SELECT *
+FROM WEIGH_IN
+WHERE Weigh_in_date BETWEEN '2023-03-01' AND '2021-03-31';
+SELECT *
+FROM WEIGH_IN
+WHERE Weigh_in_date BETWEEN '2023-03-01' AND '2021-12-31';
+SELECT *
+FROM WEIGH_IN
+WHERE Weigh_in_date BETWEEN '2021-03-01' AND '2023-12-31';
+SELECT Goat_id, COUNT(*) AS Weigh_in_count
+FROM WEIGH_IN
+GROUP BY Goat_id;
+SELECT * FROM WEIGH_IN WHERE Goat_id = 2520;
+SELECT note FROM NOTE WHERE Date_of_note > 2022-01-01;
+SELECT note FROM NOTE WHERE Date_of_note > '2022-01-01';
+SELECT note FROM NOTE WHERE Date_of_note > '2020-01-01';
+SELECT * FROM NOTE;
+\i DDL.sql
+\i DDL.sql
+SELECT * FROM NOTE;
+SELECT COUNT(note) FROM NOTE;
+SELECT * FROM NOTE WHERE date > 2022-01-01;
+SELECT * FROM NOTE WHERE Date_of_note > 2022-01-01;
+SELECT * FROM NOTE WHERE Date_of_note > '2022-01-01';
+SELECT * FROM GOAT WHERE Gender = 'Male';
+\q
+\s LinuxSession.txt
