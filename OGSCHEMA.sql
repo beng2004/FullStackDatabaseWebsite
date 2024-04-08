@@ -124,6 +124,42 @@ CREATE TABLE PicklistValue (
 
 -- read the CSV file into the table
 \copy SessionAnimalTrait from 'OGCSV/SessionAnimalTrait (2).csv' WITH DELIMITER ',' CSV HEADER;
+-- DROP TABLE IF EXISTS COHORT;
+-- CREATE TABLE COHORT AS 
+-- SELECT
+-- 	Cohort_id integer primary key,
+-- 	Cohort_name varchar(20)
+-- );
 
--- read the CSV file into the table
---\copy PicklistValue from 'PicklistValue.csv' WITH DELIMITER ',' CSV HEADER;
+CREATE TABLE GOAT AS
+SELECT
+    animal_id AS Goat_id,
+    sex AS Gender,
+    dob AS Birth_date,
+    breed AS Breed,
+    NULL AS Cohort_id -- Assuming you don't have Cohort information in the original Animal table
+FROM Animal
+PRIMARY KEY (Goat_id)
+--,FOREIGN KEY (Cohort_id) REFERENCES COHORT (Cohort_id)
+;
+
+-- Copying data from SessionAnimalActivity table to WEIGH_IN table
+CREATE TABLE WEIGH_IN AS
+SELECT
+    when_measured AS Weigh_in_date,
+    alpha_value AS Weight, -- You might need to adjust this based on where the weight data is stored
+    animal_id AS Goat_id
+FROM SessionAnimalTrait
+PRIMARY KEY(Goat_id, Weigh_in_date),
+FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
+
+-- Copying data from Note table to NOTE table
+CREATE TABLE NOTE AS
+SELECT
+    animal_id AS Goat_id,
+    note_date AS Date_of_note,
+    note AS Note
+FROM Note
+PRIMARY KEY(Goat_id, Date_of_note),
+FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
+
