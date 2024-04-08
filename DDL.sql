@@ -125,8 +125,8 @@ CREATE TABLE PicklistValue (
 
 DROP TABLE IF EXISTS NOTE;
 DROP TABLE IF EXISTS WEIGH_IN;
-DROP TABLE IF EXISTS GOAT;
 DROP TABLE IF EXISTS GOAT_ACTIVITY;
+DROP TABLE IF EXISTS GOAT;
 
 CREATE TABLE GOAT AS
 SELECT
@@ -156,12 +156,15 @@ ADD CONSTRAINT fk_goat_id2 FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 
 -- Copying data from SessionAnimalActivity table to WEIGH_IN table
 CREATE TABLE WEIGH_IN AS
-SELECT
+SELECT DISTINCT ON (animal_id, when_measured)
     when_measured AS Weigh_in_date,
-    alpha_value AS Weight, -- You might need to adjust this based on where the weight data is stored
+    alpha_value AS Weight,
     animal_id AS Goat_id
 FROM SessionAnimalTrait
-WHERE SessionAnimalTrait.trait_code = 53 or SessionAnimalTrait.trait_code = 357 or SessionAnimalTrait.trait_code = 436 or SessionAnimalTrait.trait_code = 393 or SessionAnimalTrait.trait_code = 381 or SessionAnimalTrait.trait_code = 405;
+WHERE (SessionAnimalTrait.trait_code = 53 or SessionAnimalTrait.trait_code = 357 or 
+SessionAnimalTrait.trait_code = 436 or SessionAnimalTrait.trait_code = 393
+or SessionAnimalTrait.trait_code = 381 or SessionAnimalTrait.trait_code = 
+405) and SessionAnimalTrait.alpha_value != '0.0' and SessionAnimalTrait.alpha_value != '';
 
 ALTER TABLE WEIGH_IN
 --ADD PRIMARY KEY (Weigh_in_date, Goat_id),
@@ -171,10 +174,10 @@ ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 CREATE TABLE NOTE AS
 SELECT
     animal_id AS Goat_id,
-    created AS Date_of_note,
+    note_date AS Date_of_note,
     note AS Note
-FROM NOTE1;
+FROM Animal;
 
 ALTER TABLE NOTE
-ADD PRIMARY KEY (Goat_id, Date_of_note),
+--ADD PRIMARY KEY (Goat_id, Date_of_note),
 ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
