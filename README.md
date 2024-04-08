@@ -61,7 +61,7 @@ Several sample queries are provided to retrieve and analyze data, including:
 ## Contributors
 
 - Zack O'Rourke
-  - Email: degoodj@tcnj.edu
+  - Email: zorourke14@gmail.com
   - April 2024
 - Ben Guerrieri
   - Email: guerrib2@tcnj.edu
