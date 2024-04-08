@@ -54,15 +54,19 @@ Several sample queries are provided to retrieve and analyze data, including:
 ## Instructions
 
 1. Execute the `schema.sql` file in your PostgreSQL database to create the necessary tables and schema.
-2. Import data from CSV files into the respective tables using the provided `\copy` commands.
+2. Properly name your csvs and they will be auto imported into our schema.
 3. Execute the provided SQL queries to transform data and perform analysis as needed.
+4. Front end coming soon!
 
 ## Contributors
 
-- John DeGood
+- Zack O'Rourke
   - Email: degoodj@tcnj.edu
-  - March 2024
-
+  - April 2024
+- Ben Guerrieri
+  - Email: guerrib2@tcnj.edu
+  - April 2024
+    
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
