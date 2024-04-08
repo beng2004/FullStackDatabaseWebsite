@@ -153,7 +153,8 @@ SELECT
     when_measured AS Weigh_in_date,
     alpha_value AS Weight, -- You might need to adjust this based on where the weight data is stored
     animal_id AS Goat_id
-FROM SessionAnimalTrait;
+FROM SessionAnimalTrait
+WHERE SessionAnimalTrait.trait_code = 53;
 
 ALTER TABLE WEIGH_IN
 --ADD PRIMARY KEY (Weigh_in_date, Goat_id),
