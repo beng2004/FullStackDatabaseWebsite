@@ -119,20 +119,29 @@ CREATE TABLE PicklistValue (
 -- read the CSV file into the table
 \copy Note from 'OGCSV/Note.csv' WITH DELIMITER ',' CSV HEADER;
 
--- read the CSV file into the table
---\copy SessionAnimalActivity from 'SessionAnimalActivity.csv' WITH DELIMITER ',' CSV HEADER;
 
 -- read the CSV file into the table
 \copy SessionAnimalTrait from 'OGCSV/SessionAnimalTrait (2).csv' WITH DELIMITER ',' CSV HEADER;
--- DROP TABLE IF EXISTS COHORT;
--- CREATE TABLE COHORT AS 
--- SELECT
--- 	Cohort_id integer primary key,
--- 	Cohort_name varchar(20)
--- );
+
 DROP TABLE IF EXISTS NOTE;
 DROP TABLE IF EXISTS WEIGH_IN;
 DROP TABLE IF EXISTS GOAT;
+DROP TABLE IF EXISTS GOAT_ACTIVITY;
+
+CREATE TABLE GOAT_ACTIVITY AS
+SELECT
+    session_id,
+    animal_id as Goat_id,
+    trait_code as Activity_code,
+    when_measured as Activity_date,
+    is_exported,
+    is_deleted
+FROM SessionAnimalTrait;
+
+ALTER TABLE GOAT_ACTIVITY
+ADD primary key(session_id, Goat_id, Activity_code, when_measured ),
+ADD CONSTRAINT fk_goat_id2 FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
+
 
 CREATE TABLE GOAT AS
 SELECT
@@ -140,7 +149,6 @@ SELECT
     sex AS Gender,
     dob AS Birth_date,
     breed AS Breed,
-    NULL AS Cohort_id -- Assuming you don't have Cohort information in the original Animal table
 FROM Animal;
 
 ALTER TABLE GOAT
@@ -154,7 +162,7 @@ SELECT
     alpha_value AS Weight, -- You might need to adjust this based on where the weight data is stored
     animal_id AS Goat_id
 FROM SessionAnimalTrait
-WHERE SessionAnimalTrait.trait_code = 53;
+WHERE SessionAnimalTrait.trait_code = 53 or SessionAnimalTrait.trait_code = 357 or SessionAnimalTrait.trait_code = 436 or SessionAnimalTrait.trait_code = 393 or SessionAnimalTrait.trait_code = 381 SessionAnimalTrait.trait_code = 405;
 
 ALTER TABLE WEIGH_IN
 --ADD PRIMARY KEY (Weigh_in_date, Goat_id),
