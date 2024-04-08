@@ -142,8 +142,9 @@ SELECT
     breed AS Breed,
     NULL AS Cohort_id -- Assuming you don't have Cohort information in the original Animal table
 FROM Animal;
+
 ALTER TABLE GOAT
-ADD PRIMARY KEY (Goat_id),
+ADD PRIMARY KEY (Goat_id);
 --ADD CONSTRAINT fk_cohort_id FOREIGN KEY (Cohort_id) REFERENCES COHORT (Cohort_id);
 
 -- Copying data from SessionAnimalActivity table to WEIGH_IN table
