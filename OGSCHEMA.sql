@@ -159,7 +159,7 @@ ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 CREATE TABLE NOTE AS
 SELECT
     animal_id AS Goat_id,
-    note_date AS Date_of_note,
+    created AS Date_of_note,
     note AS Note
 FROM Note;
 
