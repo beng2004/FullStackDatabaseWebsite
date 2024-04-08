@@ -114,46 +114,45 @@ CREATE TABLE PicklistValue (
 	value varchar(30));
 
 -- read the CSV file into the table
-\copy Animal from 'OGCSV/Animal (3).csv' WITH DELIMITER ',' CSV HEADER;
+\copy Animal from 'OGCSV/Animal.csv' WITH DELIMITER ',' CSV HEADER;
 
 -- read the CSV file into the table
 \copy Note from 'OGCSV/Note.csv' WITH DELIMITER ',' CSV HEADER;
 
 
 -- read the CSV file into the table
-\copy SessionAnimalTrait from 'OGCSV/SessionAnimalTrait (2).csv' WITH DELIMITER ',' CSV HEADER;
+\copy SessionAnimalTrait from 'OGCSV/SessionAnimalTrait.csv' WITH DELIMITER ',' CSV HEADER;
 
 DROP TABLE IF EXISTS NOTE;
 DROP TABLE IF EXISTS WEIGH_IN;
 DROP TABLE IF EXISTS GOAT;
 DROP TABLE IF EXISTS GOAT_ACTIVITY;
 
-CREATE TABLE GOAT_ACTIVITY AS
-SELECT
-    session_id,
-    animal_id as Goat_id,
-    trait_code as Activity_code,
-    when_measured as Activity_date,
-    is_exported,
-    is_deleted
-FROM SessionAnimalTrait;
-
-ALTER TABLE GOAT_ACTIVITY
-ADD primary key(session_id, Goat_id, Activity_code, when_measured ),
-ADD CONSTRAINT fk_goat_id2 FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
-
-
 CREATE TABLE GOAT AS
 SELECT
     animal_id AS Goat_id,
     sex AS Gender,
     dob AS Birth_date,
-    breed AS Breed,
+    breed AS Breed
 FROM Animal;
 
 ALTER TABLE GOAT
 ADD PRIMARY KEY (Goat_id);
 --ADD CONSTRAINT fk_cohort_id FOREIGN KEY (Cohort_id) REFERENCES COHORT (Cohort_id);
+
+CREATE TABLE GOAT_ACTIVITY AS
+SELECT
+    session_id as Session_id,
+    animal_id as Goat_id,
+    activity_code as Activity_code,
+    when_measured as Activity_date,
+    is_exported,
+    is_deleted
+FROM SessionAnimalActivity;
+
+ALTER TABLE GOAT_ACTIVITY
+ADD primary key(Session_id, Goat_id, Activity_code, Activity_date),
+ADD CONSTRAINT fk_goat_id2 FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 
 -- Copying data from SessionAnimalActivity table to WEIGH_IN table
 CREATE TABLE WEIGH_IN AS
@@ -162,7 +161,7 @@ SELECT
     alpha_value AS Weight, -- You might need to adjust this based on where the weight data is stored
     animal_id AS Goat_id
 FROM SessionAnimalTrait
-WHERE SessionAnimalTrait.trait_code = 53 or SessionAnimalTrait.trait_code = 357 or SessionAnimalTrait.trait_code = 436 or SessionAnimalTrait.trait_code = 393 or SessionAnimalTrait.trait_code = 381 SessionAnimalTrait.trait_code = 405;
+WHERE SessionAnimalTrait.trait_code = 53 or SessionAnimalTrait.trait_code = 357 or SessionAnimalTrait.trait_code = 436 or SessionAnimalTrait.trait_code = 393 or SessionAnimalTrait.trait_code = 381 or SessionAnimalTrait.trait_code = 405;
 
 ALTER TABLE WEIGH_IN
 --ADD PRIMARY KEY (Weigh_in_date, Goat_id),
