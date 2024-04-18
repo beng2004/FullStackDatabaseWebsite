@@ -1,0 +1,56 @@
+/* Custom CSS for the Goat Visualizer website */
+
+
+/* Enhance the overall body styling */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin-top: 80px; /* Give some space for the fixed navbar */
+}
+
+
+/* Custom styles for the navbar */
+.navbar-brand {
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+
+/* Styling the input container for better visual separation */
+.input-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
+/* Labels within the input container */
+.input-container .form-label {
+    color: #333;
+    font-weight: bold;
+}
+
+
+/* Checkbox styling */
+.form-check-label {
+    margin-left: 5px;
+    font-size: 16px;
+}
+
+
+/* Graph container specific styling */
+.canvas-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .input-container {
+        margin-bottom: 20px; /* Adds space between the inputs and graph on smaller screens */
+    }
+}
