@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const path = require('path')
 const app = express()
 const port = 3004
 
@@ -11,6 +12,9 @@ app.use(
     extended: true,
   })
 )
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
