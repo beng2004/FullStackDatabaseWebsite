@@ -16,10 +16,11 @@ const getAllGoats = (request, response) => {
     })
   }
   
-  const getWeightsAfter = (request, response) => {
-    const date = new String(request.params.date)
-    console.log(date)
-    pool.query('SELECT * FROM WEIGH_IN WHERE Weigh_in_date > $1',[date], (error, results) => {
+  const getWeightsWhere = (request, response) => {
+    const condition = request.params.condition
+    const weight = parseFloat(request.params.weight)
+    console.log(condition, weight)
+    pool.query('SELECT * FROM WEIGH_IN WHERE Weight ' + condition + ' $1',[weight], (error, results) => {
       if (error) {
         throw error
       }
@@ -30,5 +31,5 @@ const getAllGoats = (request, response) => {
   
   module.exports = {
     getAllGoats,
-    getWeightsAfter,
+    getWeightsWhere,
   }

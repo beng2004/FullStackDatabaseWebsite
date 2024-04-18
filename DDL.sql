@@ -164,7 +164,10 @@ FROM SessionAnimalTrait
 WHERE (SessionAnimalTrait.trait_code = 53 or SessionAnimalTrait.trait_code = 357 or 
 SessionAnimalTrait.trait_code = 436 or SessionAnimalTrait.trait_code = 393
 or SessionAnimalTrait.trait_code = 381 or SessionAnimalTrait.trait_code = 
-405) and SessionAnimalTrait.alpha_value != '0.0' and SessionAnimalTrait.alpha_value != '';
+405) and SessionAnimalTrait.alpha_value != '0.0' and SessionAnimalTrait.alpha_value != '' and SessionAnimalTrait.alpha_value IS NOT NULL;
+
+ALTER TABLE WEIGH_IN
+ALTER COLUMN Weight TYPE FLOAT USING Weight::FLOAT;
 
 ALTER TABLE WEIGH_IN
 --ADD PRIMARY KEY (Weigh_in_date, Goat_id),
@@ -181,3 +184,9 @@ FROM Animal;
 ALTER TABLE NOTE
 --ADD PRIMARY KEY (Goat_id, Date_of_note),
 ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
+
+DROP TABLE PicklistValue;
+DROP TABLE Animal;
+DROP TABLE NOTE1;
+DROP TABLE SessionAnimalActivity;
+DROP TABLE SessionAnimalTrait;
