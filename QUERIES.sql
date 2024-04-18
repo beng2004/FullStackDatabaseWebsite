@@ -1,7 +1,7 @@
 --gets all weigh ins for a specific goat –- 
 SELECT *
 FROM WEIGH_IN
-WHERE Goat_id = <specific_goat_id>;
+WHERE Goat_id = 1888;
 
 --Count of Weigh-ins for Each Goat--
 SELECT Goat_id, COUNT(*) AS Weigh_in_count
@@ -11,24 +11,27 @@ GROUP BY Goat_id;
 --gets all weigh ins between--
 SELECT *
 FROM WEIGH_IN
-WHERE Weigh_in_date BETWEEN '2023-03-01' AND '2021-03-31';
+WHERE Weigh_in_date BETWEEN '2021-03-01' AND '2022-03-31';
 
 --select all weigh ins – 
 SELECT *
 FROM WEIGH_IN;
+
+--Select count of weights
+SELECT COUNT(Weight) FROM WEIGH_IN;
 
 --gets first weigh in for each goat – 
 SELECT Goat_id, MIN(Weigh_in_date) AS First_Weigh_in_date
 FROM WEIGH_IN
 GROUP BY Goat_id;
 
---Retrieve all of the female notes --
-SELECT N.Note_id, N.Goat_id, N.Date_of_note, N.Message
-FROM NOTE N
-JOIN GOAT G ON N.Goat_id = G.Goat_id
-WHERE G.Gender = 'Female';
+--gets heaviest weight for each goat
+SELECT Goat_id, MAX(CAST(Weight AS FLOAT)) AS Max_weight_date
+FROM WEIGH_IN
+GROUP BY Goat_id;
 
---Number of notes per goat --
-SELECT N.Goat_id, COUNT(*) AS Note_Count
-FROM NOTE N
-GROUP BY N.Goat_id;
+--Select all notes after certain date
+SELECT * FROM NOTE WHERE Date_of_note > '2022-01-01';
+
+--Select all male goats
+SELECT * FROM GOAT WHERE Gender = 'Male';
