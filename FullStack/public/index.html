@@ -7,7 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css"
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://demos.jquerymobile.com/1.4.2/css/themes/default/jquery.mobile-1.4.2.min.css">  
+    <script src="https://demos.jquerymobile.com/1.4.2/js/jquery.js"></script>
+    <script>
+        
+    </script>
 </head>
 <body>
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -37,49 +42,74 @@
             <!-- Textbox and Checkbox Section (3 columns wide) -->
             <div class="col-md-3">
                 <div class="input-container">
-                    <h4>Input Controls</h4>
+                    <h4>Filters</h4>
                     <!-- Text boxes -->
                     <div class="mb-3">
-                        <label for="textBox1" class="form-label">Text Box 1</label>
-                        <input type="text" class="form-control" id="textBox1" placeholder="Enter text">
+                        <label for="calendarInput1" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="calendarInput1" placeholder="Enter Start Date">
                     </div>
                     <div class="mb-3">
-                        <label for="textBox2" class="form-label">Text Box 2</label>
-                        <input type="text" class="form-control" id="textBox2" placeholder="Enter text">
+                        <label for="calendarInput2" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="calendarInput2" placeholder="Enter End Date">
                     </div>
-                    <!-- Checkboxes -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="check1">
-                        <label class="form-check-label" for="check1">
-                            Option 1
-                        </label>
+                    <!-- drop downs -->
+                    <div class="mb-3">
+                        <label class="form-label" for="genders">Gender:</label>
+                        <br>
+                        <select name="genders" id="genders">
+                            <option value="">Any</option> 
+                            <option value="Male">Male</option> 
+                            <option value="Female">Female</option> 
+                            <option value="Wether">Wether</option> 
+                        </select>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="check2">
-                        <label class="form-check-label" for="check2">
-                            Option 2
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="check3">
-                        <label class="form-check-label" for="check3">
-                            Option 3
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="check4">
-                        <label class="form-check-label" for="check4">
-                            Option 4
-                        </label>
+                    <div class="mb-3">
+                        <label class="form-label" for="breeds">Breed:</label>
+                        <br>
+                        <select name="breeds" id="breeds">
+                            <option value="">Any</option> 
+                            <option value="Unlabled">Unlabled</option> 
+                            <option value="Cull">Cull</option> 
+                            <option value="Lisa">Lisa</option> 
+                            <option value="Sold">Sold</option> 
+                            <option value="ARG">ARG</option> 
+                        </select>
                     </div>
                 </div>
+                <div class="weight-container"> 
+                    <div class="input-container">
+                        <button class="big-button">Update Graph</button>                        
+                    </div>
+                </div>
+
             </div>
             <!-- Graph Section (9 columns wide) -->
             <div class="col-md-9">
                 <div class="canvas-container">
                     <canvas id="myChart" width="800" height="400"></canvas>
                 </div>
+                <div class="weight-container">
+                    <div class="input-container">
+                        <div class="range_container">
+                            <div class="sliders_control">
+                               <input id="fromSlider" type="range" value="10" min="0" max="350"/>
+                               <input id="toSlider" type="range" value="30" min="0" max="350"/>
+                            </div>
+                            <div class="form_control">
+                            <div class="form_control_container">
+                                <div class="form_control_container__time">Min</div>
+                                <input class="form_control_container__time__input" type="number" id="fromInput" value="10" min="0" max="350"/>
+                                </div>
+                                <div class="form_control_container">
+                                <div class="form_control_container__time">Max</div>
+                                <input class="form_control_container__time__input" type="number" id="toInput" value="30" min="0" max="350"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 
@@ -97,35 +127,115 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-</html>
-
-
-
-<!--
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Front End</title>
-</head>
-<body>
-    <div id="goats-list"></div>
-
     <script>
-        fetch('http://localhost:3004/weighins/</10')
-            .then(response => response.json())
-            .then(goats => {
-                const goatsList = document.getElementById('goats-list');
-                goats.forEach(weighIn => {
-                    const wElement = document.createElement('div');
-                    wElement.textContent = `Goat id: ${weighIn.goat_id}, Goat Weighi In Date: ${weighIn.weigh_in_date}, Weight: ${weighIn.weight}`;
-                    goatsList.appendChild(wElement);
-                });
-            })
-            .catch(error => console.error('Error fetching weigh in:', error));
+        function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
+    const [from, to] = getParsed(fromInput, toInput);
+    fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
+    if (from > to) {
+        fromSlider.value = to;
+        fromInput.value = to;
+    } else {
+        fromSlider.value = from;
+    }
+}
+    
+function controlToInput(toSlider, fromInput, toInput, controlSlider) {
+    const [from, to] = getParsed(fromInput, toInput);
+    fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
+    setToggleAccessible(toInput);
+    if (from <= to) {
+        toSlider.value = to;
+        toInput.value = to;
+    } else {
+        toInput.value = from;
+    }
+}
+
+function controlFromSlider(fromSlider, toSlider, fromInput) {
+  const [from, to] = getParsed(fromSlider, toSlider);
+  fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+  if (from > to) {
+    fromSlider.value = to;
+    fromInput.value = to;
+  } else {
+    fromInput.value = from;
+  }
+}
+
+function controlToSlider(fromSlider, toSlider, toInput) {
+  const [from, to] = getParsed(fromSlider, toSlider);
+  fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+  setToggleAccessible(toSlider);
+  if (from <= to) {
+    toSlider.value = to;
+    toInput.value = to;
+  } else {
+    toInput.value = from;
+    toSlider.value = from;
+  }
+}
+
+function getParsed(currentFrom, currentTo) {
+  const from = parseInt(currentFrom.value, 10);
+  const to = parseInt(currentTo.value, 10);
+  return [from, to];
+}
+
+function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
+    const rangeDistance = to.max-to.min;
+    const fromPosition = from.value - to.min;
+    const toPosition = to.value - to.min;
+    controlSlider.style.background = `linear-gradient(
+      to right,
+      ${sliderColor} 0%,
+      ${sliderColor} ${(fromPosition)/(rangeDistance)*100}%,
+      ${rangeColor} ${((fromPosition)/(rangeDistance))*100}%,
+      ${rangeColor} ${(toPosition)/(rangeDistance)*100}%, 
+      ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
+      ${sliderColor} 100%)`;
+}
+
+function setToggleAccessible(currentTarget) {
+  const toSlider = document.querySelector('#toSlider');
+  if (Number(currentTarget.value) <= 0 ) {
+    toSlider.style.zIndex = 2;
+  } else {
+    toSlider.style.zIndex = 0;
+  }
+}
+
+const fromSlider = document.querySelector('#fromSlider');
+const toSlider = document.querySelector('#toSlider');
+const fromInput = document.querySelector('#fromInput');
+const toInput = document.querySelector('#toInput');
+fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
+setToggleAccessible(toSlider);
+
+fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
+toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
+fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
+toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
+
+        
     </script>
 </body>
+
+<footer class="footer">
+    <div class="container text-center">
+        <div class="github-links">
+            <a href="https://github.com/beng2004" target="_blank">
+                <img src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png" alt="GitHub Logo" class="github-logo">
+                Ben Guerrieri
+            </a>
+            <a href="https://github.com/zorourke14" target="_blank">
+                <img src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-512.png" alt="GitHub Logo" class="github-logo">
+                Zack O'Rourke
+            </a>
+        </div>
+    </div>
+</footer>
+
 </html>
--->
+
+
+
