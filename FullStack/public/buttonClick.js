@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", function() {
             endDate = '2024-01-10'
         }
         var httpQ = `http://localhost:${port}/weighins/?startdate=${startDate}&enddate=${endDate}&startWeight=${minWeight}&endWeight=${maxWeight}`
+        if (gender != 'Any') {
+            httpQ += `&gender=${gender}`
+        }
+        if (breed != 'Any') {
+            httpQ += `&breed=${breed}`
+        }
         console.log(httpQ)
         updateChart(httpQ)
 
