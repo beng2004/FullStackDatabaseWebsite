@@ -20,14 +20,33 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Breed:", breed);
         console.log("Min Weight:", minWeight);
         console.log("Max Weight:", maxWeight);
+        if (startDate == '') {
+            startDate = '2015-01-10'
+        }
+        if (endDate == '') {
+            endDate = '2024-01-10'
+        }
+        var httpQ = `http://localhost:${port}/weighins/?startdate=${startDate}&enddate=${endDate}&startWeight=${minWeight}&endWeight=${maxWeight}`
+        console.log(httpQ)
+        updateChart(httpQ)
+
     }
-    // function updateChart() {
+    function updateChart(req) {
+        // console.log("updating chart")
+        goatData = []
+        fetch(req)
+        .then(response => response.json())
+        .then(goats => {
+            goats.forEach(weighIn => {
+                goatData.push({x: new Date(weighIn.weigh_in_date), y: weighIn.weight});
+            
+            });
+            myDotPlot.data.datasets[0].data = goatData;
+      
+            myDotPlot.update();
+        });
         
-    //     myDotPlot.data.datasets[0].data = list.map((item) => item.patients);
-      
-    //     barChart.update();
-    // }
-      
+    }
     // Adding click event listener to the button
     var updateButton = document.querySelector(".big-button");
     updateButton.addEventListener("click", handleButtonClick);

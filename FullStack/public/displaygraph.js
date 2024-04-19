@@ -1,7 +1,10 @@
-const goatData = []
+var goatData = []
 var timeFormat = 'moment.ISO_8601';
+var myDotPlot
+var port = 3115
 
-fetch('http://localhost:3115/weighins/?startdate=2022-01-01&enddate=2022-05-01&startWeight=0&endWeight=100')
+//default query
+fetch('http://localhost:'+ port + '/weighins/?startdate=2022-01-01&enddate=2022-05-01&startWeight=0&endWeight=100')
     .then(response => response.json())
     .then(goats => {
         goats.forEach(weighIn => {
@@ -10,7 +13,7 @@ fetch('http://localhost:3115/weighins/?startdate=2022-01-01&enddate=2022-05-01&s
         });
         const ctx = document.getElementById('myChart');
         // console.log(goatData[0].x)
-        const myDotPlot = new Chart(ctx, {
+            myDotPlot = new Chart(ctx, {
             type: 'scatter',
             data: {
                 datasets: [{
