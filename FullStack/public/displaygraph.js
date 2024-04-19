@@ -1,7 +1,7 @@
 const goatData = []
 var timeFormat = 'moment.ISO_8601';
 
-fetch('http://localhost:3115/weighins/?startdate=2022-01-01&enddate=2024-01-01&startWeight=10&endWeight=30')
+fetch('http://localhost:3115/weighins/?startdate=2022-01-01&enddate=2022-05-01&startWeight=0&endWeight=100')
     .then(response => response.json())
     .then(goats => {
         goats.forEach(weighIn => {
