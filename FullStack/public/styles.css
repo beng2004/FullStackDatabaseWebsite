@@ -29,6 +29,8 @@ body {
 .input-container .form-label {
     color: #333;
     font-weight: bold;
+    text-align: center;
+
 }
 
 
@@ -40,6 +42,7 @@ body {
 
 .weight-container {
     padding: 20px;
+    
 }
 /* Graph container specific styling */
 .canvas-container {
@@ -211,7 +214,7 @@ select {
   }
 
   .big-button {
-    padding: 20px 40px; /* Adjust padding to increase button size */
+    /*padding: 20px 40px; /* Adjust padding to increase button size */
     font-size: 24px; /* Adjust font size */
     border: none;
     background-color: #343634b2; /* Button background color */
@@ -219,6 +222,8 @@ select {
     border-radius: 8px; /* Rounded corners */
     cursor: pointer;
     transition: background-color 0.3s; /* Smooth background color transition */
+
+    
 }
 
 /* Hover effect */
@@ -226,4 +231,7 @@ select {
     background-color: #FF6384; /* Darker background color on hover */
 }
 
+* {
+  box-sizing: border-box;
+}
 

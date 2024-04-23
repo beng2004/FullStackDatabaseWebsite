@@ -173,6 +173,16 @@ ALTER TABLE WEIGH_IN
 --ADD PRIMARY KEY (Weigh_in_date, Goat_id),
 ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 
+-- --new stuff
+-- ALTER TABLE WEIGH_IN
+-- ADD COLUMN Age INT;
+
+-- UPDATE WEIGH_IN w
+-- SET Age = DATEDIFF(day, g.Birth_date, w.Weigh_in_date)
+-- FROM GOAT g
+-- WHERE w.Goat_id = g.Goat_id;
+
+
 -- Copying data from Note table to NOTE table
 CREATE TABLE NOTE AS
 SELECT
