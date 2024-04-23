@@ -2,7 +2,6 @@ const pgp = require('pg-promise')();
 const connectionString = 'postgres://lion:lion@localhost:5432/lion';
 const db = pgp(connectionString); 
 
-
 const singular = (request, response) => {
   const startdate = request.query.startdate;
   const enddate = request.query.enddate;
@@ -15,6 +14,7 @@ const singular = (request, response) => {
 
   let query = 'SELECT WEIGH_IN.Weigh_in_date, WEIGH_IN.Weight, WEIGH_IN.Goat_id, GOAT.breed, GOAT.gender,GOAT.Birth_date, Note.Note FROM WEIGH_IN JOIN GOAT ON WEIGH_IN.Goat_id = GOAT.Goat_id JOIN NOTE ON Weigh_in.Goat_id = Note.Goat_id WHERE WEIGH_IN.Weigh_in_date > $1 AND WEIGH_IN.Weigh_in_date < $2'
   let parameters = [startdate,enddate]
+
 
 if(startWeight != null) { //if front end indicates theres a start weight 
   query += ' AND WEIGH_IN.Weight > $3'
@@ -59,7 +59,8 @@ const originalQuery = (request, response) => {
   const gender = request.query.gender;
   const breed = request.query.breed;
 
-  let query = 'SELECT WEIGH_IN.Weigh_in_date, WEIGH_IN.Weight, WEIGH_IN.Goat_id, GOAT.breed, GOAT.gender FROM WEIGH_IN JOIN GOAT ON WEIGH_IN.Goat_id = GOAT.Goat_id WHERE WEIGH_IN.Weigh_in_date > $1 AND WEIGH_IN.Weigh_in_date < $2'
+  let query = 'SELECT WEIGH_IN.Weigh_in_date, WEIGH_IN.Weight, WEIGH_IN.Goat_id, GOAT.breed, GOAT.gender, GOAT.Birth_date, AGE(WEIGH_IN.Weigh_in_date, GOAT.Birth_date) AS age FROM WEIGH_IN JOIN GOAT ON WEIGH_IN.Goat_id = GOAT.Goat_id WHERE WEIGH_IN.Weigh_in_date > $1 AND WEIGH_IN.Weigh_in_date < $2'
+  //let query = 'SELECT WEIGH_IN.Weigh_in_date, WEIGH_IN.Weight, WEIGH_IN.Goat_id, GOAT.breed, GOAT.gender FROM WEIGH_IN JOIN GOAT ON WEIGH_IN.Goat_id = GOAT.Goat_id WHERE WEIGH_IN.Weigh_in_date > $1 AND WEIGH_IN.Weigh_in_date < $2'
   let parameters = [startdate,enddate]
 
 if(startWeight != null) { //if front end indicates theres a start weight 

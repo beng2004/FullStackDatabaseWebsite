@@ -4,7 +4,6 @@ const path = require('path');               //Path used for linking frotend
 const app = express();
 const port = 3115;
 
-
 const db = require('./queries');
 
 app.use(bodyParser.json());
