@@ -235,6 +235,18 @@ select {
 
     
 }
+.big-button-2 {
+  /*padding: 20px 40px; /* Adjust padding to increase button size */
+  font-size: 24px; /* Adjust font size */
+  border: none;
+  background-color: #343634b2; /* Button background color */
+  color: white; /* Button text color */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth background color transition */
+
+  
+}
 
 /* Hover effect */
 .big-button:hover {

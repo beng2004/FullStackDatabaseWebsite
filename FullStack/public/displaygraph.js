@@ -22,6 +22,7 @@ fetch('http://localhost:'+ port + '/weighins/?startdate=2022-01-01&enddate=2022-
                     backgroundColor: 'rgba(255, 99, 132, 0.6)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
+                    
                 }]
             },
             options: {
@@ -39,7 +40,7 @@ fetch('http://localhost:'+ port + '/weighins/?startdate=2022-01-01&enddate=2022-
                     y: {
                       title: {
                         display: true,
-                        text: 'value'
+                        text: 'Weight'
                       }
                     }
     
