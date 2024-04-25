@@ -252,6 +252,9 @@ select {
 .big-button:hover {
     background-color: #FF6384; /* Darker background color on hover */
 }
+.big-button-2:hover {
+  background-color: #FF6384; /* Darker background color on hover */
+}
 
 * {
   box-sizing: border-box;

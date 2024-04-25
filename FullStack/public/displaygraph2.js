@@ -2,6 +2,7 @@ var goatData = []
 var timeFormat = 'moment.ISO_8601';
 var myDotPlot
 var port = 3115
+var idLabels = []
 
 //default query
 fetch('http://localhost:'+ port + '/weighins/?startdate=2015-01-10&enddate=2024-01-10&startWeight=0&endWeight=350')
@@ -14,19 +15,23 @@ fetch('http://localhost:'+ port + '/weighins/?startdate=2015-01-10&enddate=2024-
                 // console.log(weighIn.age)
                 // console.log(calculateTotalDays(weighIn.age))
                 goatData.push({x: calculateTotalDays(weighIn.age), y: weighIn.weight});
+                idLabels.push(weighIn.goat_id)
               } 
             }
             
         });
         // console.log("Number of null: " + count)
         // console.log(goatData)
+        // console.log(idLabels)
+
         const ctx = document.getElementById('myChart2');
         // console.log(goatData[0].x)
             myDotPlot = new Chart(ctx, {
             type: 'scatter',
             data: {
                 datasets: [{
-                    label: 'Goat Growth',
+                    label: 'Goat ID',
+                    labels: idLabels,
                     data: goatData,
                     backgroundColor: 'rgba(255, 99, 132, 0.6)',
                     borderColor: 'rgba(255, 99, 132, 1)',
@@ -36,6 +41,7 @@ fetch('http://localhost:'+ port + '/weighins/?startdate=2015-01-10&enddate=2024-
             options: {
                 scales: {
                     x: {  
+                      beginAtZero: true,
                       title: {
                         display: true,
                         text: 'Age in Days'
@@ -44,11 +50,32 @@ fetch('http://localhost:'+ port + '/weighins/?startdate=2015-01-10&enddate=2024-
                     y: {
                       title: {
                         display: true,
-                        text: 'Weight'
+                        text: 'Weight lbs'
                       }
                     }
-    
-                }
+                },
+                plugins: {
+                  tooltip: {
+                      callbacks: {
+                          label: function(ctx) {
+                              // console.log(ctx);
+                              let label = ctx.dataset.label + ": " + ctx.dataset.labels[ctx.dataIndex];
+                              label +=  ": (" + ctx.parsed.x + " Days, " + ctx.parsed.y + "lbs)";
+                              return label;
+                          }
+                      }
+                  }
+                },
+                onClick: (event, elements, chart) => {
+                  if (elements.length >= 1)
+                    var idx = elements[0].index
+                    console.log(idx)
+                    const dataset = chart.data.datasets[0];
+                    var textInp = document.getElementById('goatIDInput')     
+                    textInp.value = dataset.labels[idx]
+                    
+                    handleButtonClick()
+                },
             }
         });
     })
