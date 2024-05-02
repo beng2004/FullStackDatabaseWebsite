@@ -1,12 +1,54 @@
-# Goat Database Project
+# Full Stack Goat Database Visualization Project
 
-## Introduction
+## Overview
 
-This project aims to create a comprehensive database system for managing goat data. It includes tables for storing data on goats, their weights, traits, notes, and more. The schema is designed to organize and track various aspects of goat management efficiently.
+This project aims to enhance sustainable goat farming at Silvies Valley Ranch by implementing a database system for organizing and visualizing goat growth trajectories based on different filters specified by the user. The application allows users to select groups of goats with different breeds, weights, genders, and birth dates to visualize their weigh in dates and view growth curves over time. It also supports inspecting specific goats and all of their weigh ins at all ages with dynamic graph updates. This solution aids in improving breeding programs and resource management, enabling data-driven decisions that help the sustainability and effectiveness of goat farming practices.
+
+## Key Features
+
+- **Advanced Filtering Options**: Ability to filter goat data based on weight, gender, breed, and age to refine search and analysis.
+- **Individual Goat Profiles**: View detailed profiles for specific goats including their growth curves and note records.
+- **Notes on Individual Goats**: Access and review notes related to the health and condition of specific goats directly within the application.
+- **Visual Analytics for Growth Curves**: Interactive visualization of growth curves for the entire goat population or specific filtered groups.
+- **Weight Monitoring Visualization**: Track and visualize weigh-in dates and associated weight changes for all goats or selected cohorts, enhancing monitoring and management.
+
+## Getting Started
+
+### Prerequisites
+
+- You need to have PostgreSQL installed on your machine.
+- Node.js is required to run the server.
+
+### Building the Database
+
+1. Start by cloning the repository to your local machine.
+2. Open a terminal and change to the cloned repository's directory.
+3. Initiate PostgreSQL and execute the following command to set up the database schema and load the data:
+    ```bash
+    psql \i DDL.sql
+    ```
+    This command utilizes the CSV files found in the `CSVs` directory to populate the database.
+
+### Configuring the Database Connection
+
+1. Open `FullStack/queries.js`.
+2. Adjust the `connectionString` variable to correspond with the port on which your database server is running.
+
+### Running the Web Application
+
+1. Make sure you are inside the `FullStack` directory.
+2. Launch the server with the command:
+    ```bash
+    node server.js
+    ```
+3. Ensure the port variables in `server.js` and other relevant files are correctly set to match your configuration.
+4. Open a web browser and navigate to `http://localhost:<PORT>` to access the web application.
+
+## Application Preview
+
+
 
 ## Schema
-
-The schema consists of several tables:
 
 The schema consists of several tables:
 
@@ -30,33 +72,7 @@ The schema consists of several tables:
    - Attributes include Session_id, Goat_id, Activity_code, Activity_date, is_exported, and is_deleted.
    - This table facilitates the tracking of different activities carried out by goats during specific sessions, providing valuable insights into their behavior and performance.
 
-## Data Import
 
-The schema provides instructions for importing data from CSV files into respective tables using the `\copy` command.
-
-## Data Transformation
-
-The schema includes SQL queries for transforming data, such as creating derived tables like `GOAT_ACTIVITY`, `WEIGH_IN`, and `NOTE` based on the original tables.
-
-## Queries
-
-Several sample queries are provided to retrieve and analyze data, including:
-
-- Getting all weigh-ins for a specific goat.
-- Counting weigh-ins for each goat.
-- Retrieving weigh-ins within a specified date range.
-- Obtaining basic statistics on weigh-in data.
-- Finding the first weigh-in date for each goat.
-- Identifying the heaviest weight recorded for each goat.
-- Selecting notes created after a certain date.
-- Filtering male goats from the database.
-
-## Instructions
-
-1. Execute the `schema.sql` file in your PostgreSQL database to create the necessary tables and schema.
-2. Properly name your csvs and they will be auto imported into our schema.
-3. Execute the provided SQL queries to transform data and perform analysis as needed.
-4. Front end coming soon!
 
 ## Contributors
 
