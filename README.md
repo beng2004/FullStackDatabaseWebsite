@@ -44,8 +44,14 @@ This project aims to enhance sustainable goat farming at Silvies Valley Ranch by
 3. Ensure the port variables in `server.js` and other relevant files are correctly set to match your configuration.
 4. Open a web browser and navigate to `http://localhost:<PORT>` to access the web application.
 
-## Application Preview
+## Weight Curve Tracker Preview
 ![Goat Data Visualization Screenshot](ImagesRM/HomePage.png)
+## Weigh-in Tracker Preview
+![Goat Data Visualization Screenshot](ImagesRM/Page2.png)
+## Filtered Curve Preview
+![Goat Data Visualization Screenshot](ImagesRM/Page3.png)
+## Single Goat Preview
+![Goat Data Visualization Screenshot](ImagesRM/Page4.png)
 
 
 ## Schema
