@@ -49,9 +49,9 @@ This project aims to enhance sustainable goat farming at Silvies Valley Ranch by
 ## Weigh-in Tracker Preview
 ![Goat Data Visualization Screenshot](ImagesRM/Page2.png)
 ## Filtered Curve Preview
-![Goat Data Visualization Screenshot](ImagesRM/Page3.png)
+![Goat Data Visualization Screenshot](ImagesRM/page3.png)
 ## Single Goat Preview
-![Goat Data Visualization Screenshot](ImagesRM/Page4.png)
+![Goat Data Visualization Screenshot](ImagesRM/page4.png)
 
 
 ## Schema
