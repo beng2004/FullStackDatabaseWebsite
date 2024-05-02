@@ -45,7 +45,7 @@ This project aims to enhance sustainable goat farming at Silvies Valley Ranch by
 4. Open a web browser and navigate to `http://localhost:<PORT>` to access the web application.
 
 ## Application Preview
-
+![Goat Data Visualization Screenshot](ImagesMD/Page1.png)
 
 
 ## Schema
