@@ -1,3 +1,4 @@
+//code for getting slider control on input and updating fills
 function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
     const [from, to] = getParsed(fromInput, toInput);
     fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
@@ -8,7 +9,8 @@ function controlFromInput(fromSlider, fromInput, toInput, controlSlider) {
         fromSlider.value = from;
     }
 }
-    
+
+//control logic for no overlapping
 function controlToInput(toSlider, fromInput, toInput, controlSlider) {
     const [from, to] = getParsed(fromInput, toInput);
     fillSlider(fromInput, toInput, '#C6C6C6', '#25daa5', controlSlider);
@@ -21,6 +23,7 @@ function controlToInput(toSlider, fromInput, toInput, controlSlider) {
     }
 }
 
+//more none overlapping code for the slider
 function controlFromSlider(fromSlider, toSlider, fromInput) {
   const [from, to] = getParsed(fromSlider, toSlider);
   fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
@@ -32,6 +35,7 @@ function controlFromSlider(fromSlider, toSlider, fromInput) {
   }
 }
 
+// calculates values depending on orientation of the slider
 function controlToSlider(fromSlider, toSlider, toInput) {
   const [from, to] = getParsed(fromSlider, toSlider);
   fillSlider(fromSlider, toSlider, '#C6C6C6', '#25daa5', toSlider);
@@ -45,12 +49,14 @@ function controlToSlider(fromSlider, toSlider, toInput) {
   }
 }
 
+//gets the data
 function getParsed(currentFrom, currentTo) {
   const from = parseInt(currentFrom.value, 10);
   const to = parseInt(currentTo.value, 10);
   return [from, to];
 }
 
+//fills the slider with css effects
 function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
     const rangeDistance = to.max-to.min;
     const fromPosition = from.value - to.min;
@@ -74,6 +80,7 @@ function setToggleAccessible(currentTarget) {
   }
 }
 
+//control for code getting elements
 const fromSlider = document.querySelector('#fromSlider');
 const toSlider = document.querySelector('#toSlider');
 const fromInput = document.querySelector('#fromInput');

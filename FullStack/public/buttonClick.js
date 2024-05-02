@@ -1,3 +1,4 @@
+//listens on doc load
 document.addEventListener("DOMContentLoaded", function() {
     // Function to handle button click event
     function handleButtonClick() {
@@ -10,16 +11,15 @@ document.addEventListener("DOMContentLoaded", function() {
         var minWeight = document.getElementById("fromInput").value;
         var maxWeight = document.getElementById("toInput").value;
 
-        //You can perform further actions with the grabbed values here
-        //For example, you can pass them to a function to update the graph
-
-        //For demonstration purposes, let's log the values to the console
+        //For demonstration purposes log the values to the console
         console.log("Start Date:", startDate);
         console.log("End Date:", endDate);
         console.log("Gender:", gender);
         console.log("Breed:", breed);
         console.log("Min Weight:", minWeight);
         console.log("Max Weight:", maxWeight);
+
+        //null value checking
         if (startDate == '') {
             startDate = '2015-01-10'
         }
@@ -34,9 +34,12 @@ document.addEventListener("DOMContentLoaded", function() {
             httpQ += `&breed=${breed}`
         }
         console.log(httpQ)
+        //updates graph on parameters
         updateChart(httpQ)
 
     }
+    
+    //updates chart based on the api request
     function updateChart(req) {
         // console.log("updating chart")
         goatData = []

@@ -1,19 +1,22 @@
-var goatData = []
-var timeFormat = 'moment.ISO_8601';
-var myDotPlot
-var port = 3115
-var idLabels = []
-//default query
+var goatData = [] //local variable for the goat x and y data starting as empty
+var timeFormat = 'moment.ISO_8601'; //specifying time format string (unused)
+var myDotPlot //makes dotplot public
+var port = 3115 //specifies port to run on
+var idLabels = [] //list for all goat ids aswell
+
+//fetches the goats between 2022 january and june as an example to start this gets changed with update
 fetch('http://localhost:'+ port + '/weighins/?startdate=2022-01-01&enddate=2022-05-01&startWeight=0&endWeight=100')
     .then(response => response.json())
     .then(goats => {
+        //fills the arraylists based on the return of query
         goats.forEach(weighIn => {
             goatData.push({x: new Date(weighIn.weigh_in_date), y: weighIn.weight});
             idLabels.push(weighIn.goat_id)
             // console.log(weighIn.weigh_in_date)
         });
+        //chart code
         const ctx = document.getElementById('myChart');
-        // console.log(goatData[0].x)
+        // all spefications of the plot
             myDotPlot = new Chart(ctx, {
             type: 'scatter',
             data: {

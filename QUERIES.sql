@@ -1,3 +1,5 @@
+--Example queries of our db schema
+
 --gets all weigh ins for a specific goat –- 
 SELECT *
 FROM WEIGH_IN

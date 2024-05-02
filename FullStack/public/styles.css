@@ -1,7 +1,7 @@
-/* Custom CSS for the Goat Visualizer website */
+/* Custom CSS for the Goat Visualizer */
 
 
-/* Enhance the overall body styling */
+/* body styling */
 body {
     background-color: #c2c8d3;
     font-family: Arial, sans-serif;
@@ -71,6 +71,7 @@ body {
     }
 }
 
+/* footer styling */
 .footer {
     position: fixed;
     bottom: 0;
@@ -82,27 +83,25 @@ body {
     transition: bottom 0.3s; /* Smooth transition for sticky behavior */
 }
 
-
-
-
+/* footer styling */
 .footer a {
     color: #ffffff;
     text-decoration: none;
 }
 
-
+/* footer anchor css */
 .footer a:hover {
     text-decoration: underline;
 }
 
-
+/* github link styling */
 .github-links a {
     margin: 0 10px;
     display: inline-block;
     vertical-align: middle;
 }
 
-
+/* github image styling */
 .github-logo {
     width: 20px;
     height: 20px;
@@ -110,7 +109,7 @@ body {
     margin-right: 5px;
 }
 
-
+/* text in footer css*/
 .footer-text {
     margin-bottom: 10px;
 }
@@ -143,6 +142,7 @@ select {
     background-color: #f0f0f0; /* Hover background color */
   }
   
+/* slider css container styling */
 
   .range_container {
     display: flex;
@@ -151,6 +151,7 @@ select {
     margin:  auto;
   }
   
+  /* more slider styling */
   .sliders_control {
     position: relative;
     min-height: 30px;

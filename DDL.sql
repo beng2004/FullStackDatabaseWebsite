@@ -1,16 +1,16 @@
 -- file: schema.sql
 --
--- this is the original Gallagher Microsoft SQL schema, except:
---     replaced nvarchar with varchar
---     replaced datetime with timestamp
+-- this is the original Gallagher Microsoft SQL schema, loaded with data and 
+-- then selected from to create our schema from it filling it out according the guidlines we
+-- set in formaer stages
 --
--- as a regression test, this file can be executed in psql:
+-- this file can be executed in psql:
 --     \i schema.sql
 --
--- John DeGood
--- degoodj@tcnj.edu
--- March 2024
+-- Ben Guerrier & Zack O'Rourke
+-- May 2024
 
+--the original schema
 DROP TABLE Animal;
 CREATE TABLE Animal (
 	animal_id integer primary key,
@@ -123,11 +123,13 @@ CREATE TABLE PicklistValue (
 -- read the CSV file into the table
 \copy SessionAnimalTrait from 'CSV/SessionAnimalTrait.csv' WITH DELIMITER ',' CSV HEADER;
 
+--drops all of our schema on load
 DROP TABLE IF EXISTS NOTE;
 DROP TABLE IF EXISTS WEIGH_IN;
 DROP TABLE IF EXISTS GOAT_ACTIVITY;
 DROP TABLE IF EXISTS GOAT;
 
+--creates goat table from schema
 CREATE TABLE GOAT AS
 SELECT
     animal_id AS Goat_id,
@@ -140,6 +142,7 @@ ALTER TABLE GOAT
 ADD PRIMARY KEY (Goat_id);
 --ADD CONSTRAINT fk_cohort_id FOREIGN KEY (Cohort_id) REFERENCES COHORT (Cohort_id);
 
+--creats goat activity table from schema
 CREATE TABLE GOAT_ACTIVITY AS
 SELECT
     session_id as Session_id,
@@ -155,6 +158,7 @@ ADD primary key(Session_id, Goat_id, Activity_code, Activity_date),
 ADD CONSTRAINT fk_goat_id2 FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 
 -- Copying data from SessionAnimalActivity table to WEIGH_IN table
+--creates weigh in table from original schema
 CREATE TABLE WEIGH_IN AS
 SELECT DISTINCT ON (animal_id, when_measured)
     when_measured AS Weigh_in_date,
@@ -183,7 +187,7 @@ ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 -- WHERE w.Goat_id = g.Goat_id;
 
 
--- Copying data from Note table to NOTE table
+-- creates not table from original note table
 CREATE TABLE NOTE AS
 SELECT
     animal_id AS Goat_id,
@@ -195,6 +199,7 @@ ALTER TABLE NOTE
 --ADD PRIMARY KEY (Goat_id, Date_of_note),
 ADD CONSTRAINT fk_goat_id FOREIGN KEY (Goat_id) REFERENCES GOAT (Goat_id);
 
+--drops the original schemas tables
 DROP TABLE PicklistValue;
 DROP TABLE Animal;
 DROP TABLE NOTE1;

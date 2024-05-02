@@ -1,14 +1,16 @@
+//local variables
 var goatData = []
 var timeFormat = 'moment.ISO_8601';
 var myDotPlot
 var port = 3115
 var idLabels = []
 
-//default query
+//default query on page load (all weights)
 fetch('http://localhost:'+ port + '/weighins/?startdate=2015-01-10&enddate=2024-01-10&startWeight=0&endWeight=350')
     .then(response => response.json())
     .then(goats => {
         goats.forEach(weighIn => {
+            //gets the data from the json api return and does null checking to fill out appropriate lists 
             if (weighIn.age){ 
               daysAlive = calculateTotalDays(weighIn.age)
               if (daysAlive > 0){
@@ -24,8 +26,9 @@ fetch('http://localhost:'+ port + '/weighins/?startdate=2015-01-10&enddate=2024-
         // console.log(goatData)
         // console.log(idLabels)
 
+        //chart variable
         const ctx = document.getElementById('myChart2');
-        // console.log(goatData[0].x)
+            // chart specs
             myDotPlot = new Chart(ctx, {
             type: 'scatter',
             data: {
@@ -82,7 +85,7 @@ fetch('http://localhost:'+ port + '/weighins/?startdate=2015-01-10&enddate=2024-
     .catch(error => console.error('Error fetching weigh in:', error));
 
 
-
+//fucntion for converting and getting day amounts given month year and num days
 function calculateTotalDays(duration) {  
   // Days in a non-leap year for each month (0-indexed)
     const daysInMonth = [

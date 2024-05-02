@@ -20,6 +20,8 @@
         
         startDate = '2015-01-10'
         endDate = '2024-01-10'
+
+        //creating api calls based on form inputs
         if (goatID == "")   {
             var httpQ = `http://localhost:${port}/weighins/?startdate=${startDate}&enddate=${endDate}&startWeight=${minWeight}&endWeight=${maxWeight}`
             if (gender != 'Any') {
@@ -43,9 +45,12 @@
             }
             console.log(httpQ)
         }
+        //calls update with the api query
         updateChart(httpQ)
 
     }
+
+    //updates the chart based on the json return of the query
     function updateChart(req) {
         // console.log("updating chart")
         goatData = []
@@ -77,6 +82,7 @@
     updateButton.addEventListener("click", handleButtonClick);
 // });
 
+//given an id gets the notes of the goat using a different api call 
 function getNotes(id) {
     const outputDiv = document.getElementById('output');
     outputDiv.innerHTML='';
